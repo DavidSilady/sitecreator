@@ -1,13 +1,930 @@
 body {
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root, .App {
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/*svg fills*/
+.cls-1{fill: #31b69c;}
+.cls-2{fill: #fbac2e;}
+.cls-3{fill: #f68529;}
+
+.nav-logo {
+  transition-duration: .4s;
+}
+
+.nav-logo:hover .logo-hand {
+  fill: #31B69C;
+  transition-duration: .4s;
+}
+
+.title-logo .cls-1, .title-logo .cls-2, .title-logo .cls-3{
+  transition-duration: .4s;
+}
+
+.title-logo:hover {
+  cursor: pointer;
+}
+
+.title-logo:hover .cls-2.logo-hand{
+  fill: #f68529;
+}
+
+.title-logo:hover .cls-3.logo-hand{
+  fill: #fbac2e;
+}
+
+.white-fill{
+  fill: white;
+}
+/* SVG end */
+
+.terms-row td {
+  padding: 20px;
+  border-bottom: 5px solid white;
+}
+
+.terms-block {
+  width: 100%;
+  justify-content: center;
+  margin: 3rem 0 !important;
+}
+
+@media (max-width: 768px) {
+  .table-text {
+    font-size: smaller;
+  }
+  .terms-row td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 380px) {
+  .table-text {
+    font-size: 11px;
+  }
+  .terms-row td {
+    padding: 2px;
+  }
+}
+
+@media (max-width: 576px) {
+  .small-button .button {
+    font-size: 12px !important;
+    padding: 5px 5px;
+    min-width: 0;
+  }
+}
+
+
+.center-text {
+  text-align: center;
+}
+
+.about-us {
+  margin-top: 2rem;
+  transition-duration: .4s;
+}
+
+.about-us h2 {
+  letter-spacing: 5px;
+}
+
+.about-us p {
+  margin-bottom: 0;
+  margin-left: 10rem;
+  margin-right: 10rem;
+}
+
+.hash-tag {
+  font-family: "Segoe UI Light", sans-serif;
+  font-size: 5rem;
+  letter-spacing: 20px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.sub-title {
+  font-family: "Segoe UI Light", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 10px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 992px) {
+  .sub-title {
+    font-size: 1.6rem;
+    letter-spacing: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sub-title {
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+  }
+  .hash-tag {
+    font-size: 3rem;
+  }
+  .about-us p {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+.button{
+  background-color: rgba(55,88,111,0);
+  min-width: 120px;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 15px;
+  border-radius: 0;
+  letter-spacing: 1px;
+}
+
+.button:hover{
+  cursor: pointer;
+  text-decoration: none;
+
+}
+
+.white-button {
+  border: 2px solid white;
+  color: white;
+}
+
+.white-button:hover {
+  border: 2px solid white;
+  background-color: white;
+  color: black;
+}
+
+.orange-button {
+  border: 2px solid #f68529;
+  color: #f68529;
+}
+
+.orange-button:hover {
+  border: 2px solid #f68529;
+  background-color: #f68529;
+  color: white;
+}
+
+.blue-button {
+  border: 2px solid #5B6B9B;
+  color: #5B6B9B;
+}
+
+.blue-button:hover {
+  border: 2px solid #5B6B9B;
+  background-color: #5B6B9B;
+  color: white;
+}
+
+.title-name {
+  font-family: 'Bangers', cursive;
+  font-size: 3rem;
+  letter-spacing: 3px;
+}
+
+@media screen and (max-width: 768px) {
+  .title-name {
+    font-size: 2rem;
+  }
+  .title-logo {
+    margin-top: 0;
+  }
+  .title-img {
+    padding-top: 10px !important;
+  }
+}
+
+.navbar {
+  padding: 0 !important;
+}
+
+.desktop-nav-links {
+  border-bottom: 2px #f8f9fa solid;
+  color: black;
+}
+
+.desktop-nav-links:hover {
+  border-bottom: 2px #31B69C solid;
+  color: #31B69C !important;
+  transition-duration: 0.5s;
+}
+
+.mobile-nav-links {
+  text-align: center;
+  color: black;
+}
+
+.mobile-nav-links:hover {
+  background-color: #F68529;
+  color: white !important;
+  transition-duration: 0.5s;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.wedo {
+  background-color: white;
+  color: black;
+  padding-top: 0;
+}
+
+.bottom-border-green {
+  border-bottom: 3px solid #31B69C !important;
+}
+
+.bottom-border-orange {
+  border-bottom: 3px solid #F68529 !important;
+}
+
+.top-border-green {
+  border-top: 3px solid #31B69C !important;
+}
+
+.top-border-orange {
+  border-top: 3px solid #F68529 !important;
+}
+
+.text-green {
+  color: #31B69C !important;
+}
+
+.text-orange {
+  color: #F68529 !important;
+}
+
+.text-white {
+  color: white !important;
+}
+
+.text-blue {
+  color: #3B4B6B !important;
+}
+
+.text-darkblue {
+  color: #3B4B6B !important;
+}
+
+.bg-green {
+  background-color: #31B69C;
+  color: white;
+}
+
+.bg-orange {
+  background-color: #F68529;
+  color: white;
+}
+
+.bg-white {
+  background-color: white;
+  color: #3B4B6B;
+}
+
+.text-red {
+  color: #AF1717 !important;
+}
+
+.text-red p {
+  color: #932C2C !important;
+}
+
+.bg-red{
+  background-color: #AF1717 !important;
+  color: white;
+}
+
+.bg-darkblue {
+  background-color: #3B4B6B;
+  color: #3B4B6B;
+}
+
+.bg-darkblue h1, .bg-darkblue h2, .bg-darkblue h3 {
+  color: #5B6B9B;
+}
+
+.bg-blue {
+  background-color: #5B6B9B;
+  color: white;
+}
+
+
+
+.text-blue {
+  color: #3B4B6B;
+}
+
+.text-blue h1 {
+  color: #5B6B9B;
+}
+
+.portfolio-parent .text-blue {
+  color: white !important;
+}
+
+.side-block {
+  width: 75%;
+  margin: 4rem 3rem;
+}
+
+.fixed
+{
+  position: fixed;
+  top: 60px;
+}
+
+/*@media (max-width: 1280px) {*/
+/*  .side-block {*/
+/*    margin: 2rem 4rem;*/
+/*  }*/
+/*}*/
+
+@media (max-width: 768px) {
+  .contact-block .text-left, .contact-block .text-right{
+    text-align: center !important;
+  }
+}
+
+.contact-person {
+  margin-top: 2rem;
+}
+
+.w-head {
+  font-family: 'Segoe UI Black', sans-serif;
+  font-weight: 400;
+  font-size: 1.8rem;
+  letter-spacing: 3px;
+}
+
+.w-desc {
+  font-family: 'Segoe UI Light', sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+.about-us-general h2 {
+  font-family: 'Segoe UI Black', sans-serif;
+  font-size: 3.5rem;
+}
+
+@media (max-width: 768px) {
+  .about-us-general h2 {
+    font-family: 'Segoe UI Black', sans-serif;
+    font-size: 2.5rem;
+  }
+}
+
+.side-padding-light {
+  padding: 0 50px;
+}
+
+.w-about-us h2 {
+  font-family: 'Segoe UI Light', sans-serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+}
+
+.anagram-letter h3 strong {
+  /*color: #F68529;*/
+  font-family: "Bangers", cursive;
+  font-size: 2.75rem;
+}
+
+.w-sub {
+  font-family: 'Segoe UI Light', sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.w-text {
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.center-base {
+  margin-right: 14rem;
+  margin-left: 14rem;
+  margin-bottom: 5rem;
+}
+
+@media (max-width: 1280px) {
+  .center-base {
+    margin-right: 6rem;
+    margin-left: 6rem;
+    margin-bottom: 5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .center-base {
+    margin-right: 3rem;
+    margin-left: 3rem;
+    margin-bottom: 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .center-base {
+    margin-right: 1rem;
+    margin-left: 1rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.title-img {
+  height: 100%;
+  padding-top: 50px;
+  color: white;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  position:relative;
+}
+
+.parallax {
+  background-attachment: fixed;
+  background-position: bottom center;
+   /* Create the parallax scrolling effect */
+}
+
+/* dark filter */
+.dark-filter:after {
+  content:"";
+  display:block;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.25);
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:1 /*Added this in the updated */
+}
+
+.very-dark-filter:after {
+  content:"";
+  display:block;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.4);
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:1 /*Added this in the updated */
+}
+/* Makes sure everything in front of the title is not covered by the filter */
+.dark-filter > * {
+  position:relative;
+  z-index:2;
+}
+
+.very-dark-filter > * {
+  position:relative;
+  z-index:2;
+}
+
+/*
+Portfolio img blocks
+from https://github.com/DavidSilady/ictomi/blob/master/css/styles.css
+*/
+
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+}
+
+.display-none {
+  display: none !important;
+}
+
+.display-block {
+  display: block !important;
+}
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+.portfolio-parent {
+  background-color: #31B69C;
+  padding: 0;
+  min-height: 400px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  float: left;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.portfolio-img {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 400px;
+  height: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .portfolio-parent:hover .dark-filter:before,
+  .portfolio-parent:focus .dark-filter:before {
+    background-color: rgba(255,255,255,0.75);
+    transition-duration: .4s;
+  }
+
+  .portfolio-img:hover {
+    transform: scale(1.2);
+    transition-duration: .4s;
+  }
+
+  .portfolio-img {
+    transition-duration: .4s;
+  }
+
+  .portfolio-img::before {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(255,255,255,0.0);
+    transition-duration: .4s;
+    z-index: 0;
+  }
+
+  .portfolio-img > * {
+    position:relative;
+    z-index:2;
+  }
+
+  .portfolio-parent:hover .dark-filter:before,
+  .portfolio-parent:focus .dark-filter:before {
+    background-color: rgba(0, 0, 0,0.5);
+    transition-duration: .4s;
+  }
+
+  .portfolio-text::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 50%;
+    margin-right: 50%;
+    background-color: rgba(255,255,255,0.0);
+    transition-duration: .4s;
+    z-index: 1;
+    border-bottom: 1px solid white;
+  }
+  .portfolio-img:hover .portfolio-text::after,
+  .portfolio-img:focus .portfolio-text::after {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+  .portfolio-img:hover .portfolio-text,
+  .portfolio-img:focus .portfolio-text,
+  .portfolio-img:hover .portfolio-under,
+  .portfolio-img:focus .portfolio-under	{
+    color: #ffffff;
+    display: block;
+    transition-duration: .4s;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio-parent, .portfolio-img {
+    min-height: 250px;
+    cursor: default;
+  }
+}
+
+.portfolio-text, .portfolio-under {
+  color: rgba(255,255,255,0.00);
+  text-align: center;
+  margin: auto;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  transition-duration: .4s;
+  z-index: 2;
+}
+.portfolio-under {
+  padding-top: 50px;
+  letter-spacing: 1px;
+  font-size: .8rem;
+}
+
+.name-tag {
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 300;
+  font-size: 2rem;
+  letter-spacing: 5px;
+}
+
+/*
+Portfolio img (blocks) end
+*/
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.loading-logo {
+  width: 150px;
+  height: 150px;
+  margin: 2%;
+}
+
+.footer {
+  background-color: #3B4B6B;
+  color: white;
+}
+
+.footer a {
+  color: white;
+}
+
+.footer a:hover {
+  color: white;
+}
+
+.footer-ck {
+  text-align: justify;
+}
+
+.footer-mapa-stranky {
+  text-align: justify;
+}
+
+.footer-kontakt {
+  text-align: justify;
+}
+
+.footer-link:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 576px) {
+  .w-head {
+    text-align: center;
+  }
+  .w-desc {
+    text-align: center;
+  }
+  .w-text {
+    text-align: center;
+  }
+  .hash-tag {
+    letter-spacing: 10px;
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .portfolio-parent {
+    height: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .footer-ck {
+    text-align: left;
+  }
+  .footer-mapa-stranky {
+    text-align: center;
+  }
+  .footer-kontakt {
+    text-align: right;
+  }
+}
+
+.fade-appear {
+  opacity: 0;
+  z-index: 0;
+}
+
+.fade-appear.fade-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms linear;
+}
+
+.slide-appear {
+  transform: translateY(100%);
+}
+
+.slide-appear.slide-appear-active {
+  transform: translateX(0%);
+  transition: transform 1000ms ease-in;
+}
+
+.housing-text h3 {
+  font-family: "Segoe UI Black", sans-serif;
+}
+
+Nav {
+  box-shadow: 5px -5px 10px 5px #131313;
+}
+
+.step-shadow {
+  box-shadow: 3px 3px 13px 1px rgba(0, 0, 0, 0.5);
+}
+
+.side-shadow {
+  box-shadow: -4px 3px 15px -6px rgba(0, 0, 0, 0.65);
+}
+
+.material-shadow {
+  box-shadow: 3px 3px 13px -6px rgba(0, 0, 0, 0.5);
+}
+
+.side-link {
+  margin-left: 0;
+  transition: margin 200ms;
+}
+
+.side-link:hover {
+  margin-left: 10px;
+  transition: margin 400ms;
+}
+
+.accom-title-border {
+  border-bottom: 1px solid white;
+}
+
+.closed-slide {
+  max-height: 0;
+  transition-duration: .4s;
+}
+
+.closed-slide-l {
+  max-height: 0;
+  transition-duration: .6s;
+}
+
+.appear-slide-m {
+  max-height: 1000px;
+  transition-duration: .5s;
+}
+
+.appear-slide-l {
+  max-height: 3000px;
+  transition-duration: 1.4s;
+}
+
+.visibility-hidden-l {
+  visibility: hidden;
+  opacity: 0;
+  transition-delay: .1s;
+  transition-duration: 1s;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition-delay: .05s;
+  transition-duration: .25s;
+}
+
+.visibility-show {
+  visibility: visible;
+  opacity: 1;
+  transition-duration: .05s;
+}
+
+.bm-m { /*bottom margin - medium*/
+  margin-bottom: 1px;
+}
+button:focus {
+  outline: 0 !important;
+}
+
+.side-bar-overlay {
+  z-index: 1010 !important;
+  position: fixed;
+  left: 24px;
+}
+
+.round-image-button {
+  margin: 15px;
+
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.3);
+  transition-duration: .3s;
+}
+
+.round-image-button:hover {
+  /*margin: 10px;*/
+  transform: scale(1.1);
+  cursor: pointer;
+  width: 75px;
+  height: 75px;
+  box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.25);
+  transition-duration: .3s;
+}
+
+.product-listing-overlay {
+  position: absolute;
+  bottom: 0;
+  /*background: rgb(0, 0, 0);*/
+  /*background: rgba(0, 0, 0, 0.5); !* Black see-through *!*/
+  /*color: #f1f1f1;*/
+  height: 100%;
+  width: 15%;
+  transition: .3s;
+  /*opacity:0;*/
+  padding: 0px;
+}
+
+.product-listing {
+  position: relative;
+  box-shadow: 3px 3px 13px -6px rgba(0, 0, 0, 0.7);
+}
+
+.product-listing:hover {
+  cursor: pointer;
+}
+
+.product-listing:hover .product-listing-overlay {
+  width: 5%;
+  /*opacity: 1;*/
+}
+
+.product-listing-img {
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  transform: scale(1.2);
+  transition: .3s;
+}
+
+.product-listing:hover .product-listing-img{
+  transform: scale(1.0);
+  transition: .3s;
 }

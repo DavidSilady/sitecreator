@@ -1,4 +1,4 @@
-import {GoldenRow, GoldenRowWrapper} from "./GoldenRow";
+import {GoldenRow, GoldenRowEditor, GoldenRowWrapper} from "./GoldenRow";
 import {map} from "react-bootstrap/ElementChildren";
 import {BsLayoutWtf} from "react-icons/bs";
 import {RiLayoutRightFill} from "react-icons/ri";
@@ -7,19 +7,20 @@ import {MDEditor} from "./MDEditor";
 import {JsonTextEditor} from "./TextFieldEditor";
 
 class CustomComponent {
-    constructor(jsx, name="", icon=<BsLayoutWtf/>) {
+    constructor(jsx, editor, name="", icon=<BsLayoutWtf/>) {
         this.name = name
         this.icon = icon
         this.Jsx = jsx
+        this.Editor = editor
         this.content = {}
     }
 }
 
 const components = {
-    "GoldenRow": new CustomComponent(GoldenRowWrapper, "GoldenRow", <RiLayoutRightFill/>)
+    "GoldenRow": new CustomComponent(GoldenRowWrapper, GoldenRowEditor, "GoldenRow", <RiLayoutRightFill/>)
 }
 
-const ComponentBuilder = ({jsonComponent}) => {
+export const ComponentBuilder = ({jsonComponent}) => {
     const Component = components[jsonComponent.name]
     if (Component) {
         return (
@@ -51,6 +52,8 @@ const EditableComponentBuilder = ({jsonComponent}) => {
         setEditableComponent(jsonComponent)
     })
 
+    const Component = components[jsonComponent.name]
+
     function updateContent(propName, value) {
         jsonComponent.content[propName] = value;
         setEditableComponent({
@@ -62,9 +65,10 @@ const EditableComponentBuilder = ({jsonComponent}) => {
         })
     }
 
+
     return (
         <div>
-            <JsonTextEditor jsonData={editableComponent.content} handleChange={updateContent}/>
+            <Component.Editor updateContent={updateContent}/>
             <ComponentBuilder jsonComponent={editableComponent}/>
         </div>
     )

@@ -59,19 +59,17 @@ export const TextArea = ({className, children, isEditing}) => {
 
 }
 
-const MarkdownArea = ({className, children}) => {
+export const MarkdownArea = ({className, children}) => {
     return (
         <ReactMarkdown plugins={gfm}>{children}</ReactMarkdown>
     )
 }
 
-const EditArea = ({className, children, content, handlePropChange, propName}) => {
+export const EditArea = ({className, children, content, handlePropChange, propName}) => {
     return (
         <MDEditor content={content[propName]} handleSubmit={(value) => {handlePropChange(value, propName)}}/>
     );
 }
-
-
 
 export const JsonTextEditor = ({jsonData, handleChange}) => {
     const classes = useFormStyles();

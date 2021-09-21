@@ -10,33 +10,22 @@ const customComps = [
     {
         name: "GoldenRow",
         content: {
-            name: "Whateveer",
+            title: "Title",
+            subtitle: "Subtitle",
             justify: "text-left",
-            text: "this is a a testtstst st",
             img: "",
-            category: "test",
-            color: {
-                bg: "orange",
-                text: "white",
-                img: "orange"
-            }
+            bgColor: "green",
+            textColor: "white",
+            imgColor: "green",
+            href: "",
+            markdown:
+                "**This is a test**\n\n" +
+                "*Is it working?*" +
+                "\n\n" +
+                "~no~" +
+                "\n :button[Test]{}",
         }
     },
-    // {
-    //     name: "GoldenRow",
-    //     content: {
-    //         name: "WSHHSI",
-    //         justify: "text-right",
-    //         text: "this is a a testtstst st",
-    //         img: "",
-    //         category: "test",
-    //         color: {
-    //             bg: "green",
-    //             text: "white",
-    //             img: "white"
-    //         }
-    //     }
-    // },
 ]
 
 function App() {

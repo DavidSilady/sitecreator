@@ -21,9 +21,9 @@ const customComps = [
             markdown:
                 "**This is a test**\n\n" +
                 "*Is it working?*" +
-                "\n\n" +
-                "~no~" +
-                "\n :button[Test]{}",
+                "\n\n~no~" +
+                "\n :button[Test]{text=\"shiiit\"}" +
+                "\n# :icon[FaCannabis]",
         }
     },
 ]

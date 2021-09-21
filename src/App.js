@@ -22,21 +22,21 @@ const customComps = [
             }
         }
     },
-    {
-        name: "GoldenRow",
-        content: {
-            name: "WSHHSI",
-            justify: "text-right",
-            text: "this is a a testtstst st",
-            img: "",
-            category: "test",
-            color: {
-                bg: "green",
-                text: "white",
-                img: "white"
-            }
-        }
-    },
+    // {
+    //     name: "GoldenRow",
+    //     content: {
+    //         name: "WSHHSI",
+    //         justify: "text-right",
+    //         text: "this is a a testtstst st",
+    //         img: "",
+    //         category: "test",
+    //         color: {
+    //             bg: "green",
+    //             text: "white",
+    //             img: "white"
+    //         }
+    //     }
+    // },
 ]
 
 function App() {

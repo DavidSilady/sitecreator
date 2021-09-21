@@ -1,43 +1,31 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-bootstrap";
-import {Context} from "../Contexts/Context";
-import Loader from "react-loader-spinner";
-import {useForm} from "react-hook-form";
-import {Button, IconButton, Input, InputLabel, MenuItem, Select} from "@material-ui/core";
-import {FlatButton} from "material-ui";
-import FormControl from "@material-ui/core/FormControl";
+import {Context} from "../Contexts/Context"
+import Form from "@rjsf/material-ui";
+import {ColorDisplay, colorPickerFormSchema} from "./ColorDisplay";
+import {Button} from "@material-ui/core";
+
+
+const formSchema = {
+    title: "Golden Row",
+    type: "object",
+    properties: {
+        title: {type: "string", title: "Title"},
+        color: colorPickerFormSchema,
+    }
+}
+
+
 
 export const GoldenRowEditor = ({updateContent}) => {
-    const {register, handleSubmit } = useForm({
 
-    })
 
-    const onSubmit = (data) => {
-        console.log("working")
-        console.log(data)
-    }
+    const onSubmit = ({formData}, e) => console.log("Data submitted: ",  formData);
 
     return (
         <div className={"container material-shadow"}
              style={{paddingBottom: "10px", margin: "20px", borderLeft: "3px solid #31b69c"}}>
-            <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", justifyContent: "space-evenly"}}>
-                <Input  {...register('test.firstName')}/>
-                <FormControl>
-                    <InputLabel id={"color_label"}>Color</InputLabel>
-                    <Select variant={"standard"} labelId={"color_label"} {...register("color")}>
-                        <MenuItem value={"green"}>green</MenuItem>
-                        <MenuItem value={"orange"}>orange</MenuItem>
-                    </Select>
-                </FormControl>
-                <Button
-                    type={"submit"}
-                    variant={"contained"}
-                    color={"primary"}
-                >
-                    Submit
-                </Button>
-            </form>
-
+            <Form schema={formSchema} onSubmit={onSubmit}/>
         </div>
     )
 }

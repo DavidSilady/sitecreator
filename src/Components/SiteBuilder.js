@@ -44,8 +44,9 @@ export const SiteBuilder = ({jsonComponents}) => {
     )
 }
 
-const EditableComponentBuilder = ({jsonComponent}) => {
+const EditableComponentBuilder = ({jsonComponent, index}) => {
     const [editableComponent, setEditableComponent] = useState({})
+
 
     useEffect(() => {
         setEditableComponent(jsonComponent)
@@ -72,9 +73,10 @@ const EditableComponentBuilder = ({jsonComponent}) => {
         })
         // console.log(editableComponent.content)
     }
+
     return (
         <div>
-            <Component.Editor updateContent={updateContent} content={editableComponent.content}/>
+            <Component.Editor updateContent={updateContent} content={editableComponent.content} index={index}/>
             <ComponentBuilder jsonComponent={editableComponent}/>
         </div>
     )
@@ -109,9 +111,10 @@ export const EditableSiteBuilder = ({initialComponents}) => {
 
     return (
         <div>
-            {jsonComponents.map(component => (
-                <EditableComponentBuilder jsonComponent={component}/>
-            ))}
+            {jsonComponents.map((component, index) => {
+
+                return <EditableComponentBuilder jsonComponent={component} index={index}/>
+            })}
         </div>
     )
 }

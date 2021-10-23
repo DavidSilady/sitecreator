@@ -20,18 +20,17 @@ const formSchema = {
     }
 }
 
-export const GoldenRowEditor = ({updateContent, content}) => {
+
+export const GoldenRowEditor = ({updateContent, content, index}) => {
     const [focusID, setFocusID] = useState("")
 
     // Keep focus after rerender
     if (focusID) { document.getElementById(focusID).focus(); }
 
-
-    console.log("Content: ", content)
-    console.log("Focus: ", focusID)
     const onChange = ({formData}, e) => {
-        console.log(formData)
-        updateContent(formData)
+        if (content) {
+            updateContent(formData)
+        }
     }
 
     const onSubmit = ({formData}, e) => {
@@ -40,14 +39,16 @@ export const GoldenRowEditor = ({updateContent, content}) => {
 
     const onFocus = (id) => {
         setFocusID(id)
-        console.log(focusID)
     }
 
     return (
         <div className={"container material-shadow"}
              style={{paddingBottom: "10px", margin: "20px", borderLeft: "3px solid #31b69c"}}>
-            <Form schema={formSchema} onFocus={onFocus} onSubmit={onSubmit} onChange={onChange} formData={content}  uiSchema={{
-                "ui:ObjectFieldTemplate": getObjectFieldTemplate(4)}}
+            <Form schema={formSchema} onFocus={onFocus} onSubmit={onSubmit} onChange={onChange} formData={content}
+                  idPrefix={index}
+                  uiSchema={{
+                      "ui:ObjectFieldTemplate": getObjectFieldTemplate(4),
+                  }}
             />
         </div>
     )

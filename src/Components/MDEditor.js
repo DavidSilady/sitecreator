@@ -6,8 +6,10 @@ import "react-mde/lib/styles/css/react-mde-all.css";
 import {useEffect} from "react";
 import {Markdown} from "./Markdown";
 import { getDefaultToolbarCommands } from 'react-mde'
-import {FaIcons, FaImage} from "react-icons/fa";
+import {FaIcons, FaImage, FaRegWindowMinimize} from "react-icons/fa";
 import {BiInfoSquare} from "react-icons/bi";
+import {MdWrapText} from "react-icons/md";
+
 
 //https://codesandbox.io/s/react-mde-latest-forked-f9ti5?file=/src/index.js
 //https://github.com/andrerpena/react-mde
@@ -25,7 +27,7 @@ export function MDEditor({content, handleSubmit, keyValue=""}) {
 
     const toolbarCommands = [
         [
-            'header', 'bold', 'italic'
+            'header', 'bold', 'italic', 'custom-newline', 'custom-vertical-line'
         ],
         [
             'link', 'custom-img', 'custom-icon', 'custom-button'
@@ -39,6 +41,8 @@ export function MDEditor({content, handleSubmit, keyValue=""}) {
         'custom-img': customImg,
         'custom-icon': customIcon,
         'custom-button': customButton,
+        'custom-newline': customNewline,
+        'custom-vertical-line': customVerticalLine,
     }
     return (
             <ReactMde
@@ -95,5 +99,25 @@ const customButton = {
         opts.textApi.replaceSelection(':button[Text]{url="https://ckvida.sk" color="white" icon=""}');
         const {start, end} = opts.textApi.getState().selection
         opts.textApi.setSelectionRange({start: start - 41, end: end - 24})
+    }
+}
+
+const customNewline = {
+    name: "custom-newline",
+    icon: () => (
+        <MdWrapText/>
+    ),
+    execute: opts => {
+        opts.textApi.replaceSelection('\\');
+    }
+}
+
+const customVerticalLine = {
+    name: "custom-vertical-line",
+    icon: () => (
+        <FaRegWindowMinimize/>
+    ),
+    execute: opts => {
+        opts.textApi.replaceSelection('\n****\n');
     }
 }

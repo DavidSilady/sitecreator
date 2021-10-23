@@ -12,18 +12,20 @@ const customComps = [
         content: {
             title: "Title",
             subtitle: "Subtitle",
-            justify: "text-left",
+            justify: "text-right",
             img: "",
             bgColor: "orange",
             textColor: "white",
             imgColor: "green",
             href: "",
             markdown:
-                "**This is a test**\n\n" +
-                "*Is it working?*" +
-                "\n\n~no~" +
-                "\n :button[Test]{text=\"shiiit\"}" +
-                "\n# :icon[FaGraduationCap]",
+                "### **PONUKA LETNÝCH TÁBOROV 2022**\n" +
+                "****\n" +
+                "##### First minute ZĽAVA do 30.3.\n" +
+                "\\\n" +
+                "Pestrá ponuka letných táborov 2022 v najlepších rekreačných strediskách. Vida Loca - letný tábor pre tínedžerov, Vida Army - s vojenskou tematikou a airsoftom, Viva La Vida - nabitý atrakciami a v našom top stredisku či Vida YouTube & TikTok - pre začínajúcich influencerov. A to ani zďaleka nie je všetko.\n" +
+                "\n" +
+                ":button[Viac]{url=\"https://ckvida.sk/tabory\" color=\"white\" icon=\"\"}"
         }
     },
     {

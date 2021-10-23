@@ -6,6 +6,7 @@ import { h } from "hastscript/html.js"
 import gfm from "remark-gfm";
 import {DynamicFaIcon} from "./MarkdownComponents/IconRenderer";
 import {MarkdownImg} from "./MarkdownComponents/MarkdownImg";
+import {MarkdownButton} from "./MarkdownComponents/MarkdownButton";
 
 export const Markdown = ({className, children}) => {
     return (

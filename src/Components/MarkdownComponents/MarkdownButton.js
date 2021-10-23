@@ -1,15 +1,15 @@
-export const MyButton = ({color, content, href, onClick, target, icon, minWidth, style, classNames, minHeight="48px"}) => {
+import {DynamicFaIcon} from "./IconRenderer";
+
+export const MarkdownButton = ({children, color="white", url, icon="", minWidth="48px", minHeight="48px"}) => {
     return (
-        <div style={style}>
+        <div>
             <a
-                href={href}
-                className={color + "-button button " + classNames}
-                onClick={onClick}
-                target={target}
+                href={url}
+                className={color + "-button button "}
                 style={{minWidth: minWidth, minHeight: minHeight}}
                 rel="noopener noreferrer">
-                {icon ? <h4>{icon}</h4> : null}
-                {content}
+                {icon ? <DynamicFaIcon>{icon}</DynamicFaIcon> : null}
+                {children}
             </a>
         </div>
     )

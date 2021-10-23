@@ -7,6 +7,7 @@ import {useEffect} from "react";
 import {Markdown} from "./Markdown";
 import { getDefaultToolbarCommands } from 'react-mde'
 import {FaIcons, FaImage} from "react-icons/fa";
+import {BiInfoSquare} from "react-icons/bi";
 
 //https://codesandbox.io/s/react-mde-latest-forked-f9ti5?file=/src/index.js
 //https://github.com/andrerpena/react-mde
@@ -27,7 +28,7 @@ export function MDEditor({content, handleSubmit, keyValue=""}) {
             'header', 'bold', 'italic'
         ],
         [
-            'link', 'custom-img', 'custom-icon'
+            'link', 'custom-img', 'custom-icon', 'custom-button'
         ],
         [
             'unordered-list', 'ordered-list', 'checked-list'
@@ -37,6 +38,7 @@ export function MDEditor({content, handleSubmit, keyValue=""}) {
     const commands = {
         'custom-img': customImg,
         'custom-icon': customIcon,
+        'custom-button': customButton,
     }
     return (
             <ReactMde
@@ -83,3 +85,15 @@ const customIcon = {
         opts.textApi.setSelectionRange({start: start - 8, end: end - 1})
     }
 };
+
+const customButton = {
+    name: "custom-button",
+    icon: () => (
+        <BiInfoSquare/>
+    ),
+    execute: opts => {
+        opts.textApi.replaceSelection(':button[Text]{url="https://ckvida.sk" color="white" icon=""}');
+        const {start, end} = opts.textApi.getState().selection
+        opts.textApi.setSelectionRange({start: start - 41, end: end - 24})
+    }
+}

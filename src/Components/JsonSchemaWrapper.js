@@ -22,10 +22,14 @@ export const JsonSchemaWrapper = ({updateContent, content, index, formSchema, ch
         setFocusID(id)
     }
 
+    const onBlur = (id) => {
+        setFocusID("")
+    }
+
     return (
         <div className={"container material-shadow"}
              style={{padding: "20px", margin: "20px", borderLeft: "3px solid #31b69c"}}>
-            <Form schema={formSchema} onFocus={onFocus} onSubmit={onSubmit} onChange={onChange} formData={content}
+            <Form schema={formSchema} onBlur={onBlur} onFocus={onFocus} onSubmit={onSubmit} onChange={onChange} formData={content}
                   idPrefix={index}
                   uiSchema={{
                       "ui:ObjectFieldTemplate": getObjectFieldTemplate(4),

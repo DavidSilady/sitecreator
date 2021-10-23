@@ -8,6 +8,7 @@ import {MarkdownArea} from "../TextFieldEditor";
 import {Markdown} from "../Markdown";
 import {getObjectFieldTemplate} from "../GridFormObjectTemplate";
 import {JsonSchemaWrapper} from "../JsonSchemaWrapper";
+import {MDEditor} from "../MDEditor";
 
 
 const formSchema = {
@@ -25,12 +26,10 @@ const formSchema = {
     }
 }
 
-
 export const GoldenRowEditor = ({updateContent, updateContentProp, content, index}) => {
-
     return (
         <JsonSchemaWrapper formSchema={formSchema} index={index} content={content} updateContent={updateContent}>
-            <div>TEST</div>
+            <MDEditor content={content ? content.markdown : null} handleSubmit={(value) => updateContentProp("markdown", value)} key={`${index}_MDEditor`} keyValue={`${index}_MDEditorArea`}/>
         </JsonSchemaWrapper>
     )
 }

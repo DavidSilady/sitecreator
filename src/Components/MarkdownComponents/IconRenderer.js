@@ -5,7 +5,7 @@ export const DynamicFaIcon = ({ children }) => {
     const IconComponent = Icons[children];
 
     if (!IconComponent) { // Return a default one
-        return <Icons.FaBeer />;
+        return <Icons.FaHeart />;
     }
 
     return <IconComponent />;

@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-bootstrap";
-import {Context} from "../Contexts/Context"
+import {Context} from "../../Contexts/Context"
 import Form from "@rjsf/material-ui";
-import {ColorDisplay, colorPickerFormSchema} from "./ColorDisplay";
+import {ColorDisplay, colorPickerFormSchema} from "../ColorDisplay";
 import {Button} from "@material-ui/core";
-import {MarkdownArea} from "./TextFieldEditor";
-import {Markdown} from "./Markdown";
+import {MarkdownArea} from "../TextFieldEditor";
+import {Markdown} from "../Markdown";
+import {getObjectFieldTemplate} from "../GridFormObjectTemplate";
 
 
 const formSchema = {
@@ -13,24 +14,41 @@ const formSchema = {
     type: "object",
     properties: {
         title: {type: "string", title: "Title"},
-        color: colorPickerFormSchema,
+        bgColor: colorPickerFormSchema("Background Color"),
+        imgColor: colorPickerFormSchema("Image Color"),
+        textColor: colorPickerFormSchema("Text Color"),
     }
 }
 
-export const GoldenRowEditor = ({updateContent}) => {
+export const GoldenRowEditor = ({updateContent, content}) => {
+    const [focusID, setFocusID] = useState("")
 
+    // Keep focus after rerender
+    if (focusID) { document.getElementById(focusID).focus(); }
+
+
+    console.log("Content: ", content)
+    console.log("Focus: ", focusID)
     const onChange = ({formData}, e) => {
         console.log(formData)
+        updateContent(formData)
     }
 
     const onSubmit = ({formData}, e) => {
         console.log("Data submitted: ", formData);
     }
 
+    const onFocus = (id) => {
+        setFocusID(id)
+        console.log(focusID)
+    }
+
     return (
         <div className={"container material-shadow"}
              style={{paddingBottom: "10px", margin: "20px", borderLeft: "3px solid #31b69c"}}>
-            <Form schema={formSchema} onSubmit={onSubmit} onChange={onChange}/>
+            <Form schema={formSchema} onFocus={onFocus} onSubmit={onSubmit} onChange={onChange} formData={content}  uiSchema={{
+                "ui:ObjectFieldTemplate": getObjectFieldTemplate(4)}}
+            />
         </div>
     )
 }

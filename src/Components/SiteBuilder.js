@@ -1,4 +1,4 @@
-import {GoldenRow, GoldenRowEditor, GoldenRowWrapper} from "./GoldenRow";
+import {GoldenRow, GoldenRowEditor, GoldenRowWrapper} from "./BuildComponents/GoldenRow";
 import {map} from "react-bootstrap/ElementChildren";
 import {BsLayoutWtf} from "react-icons/bs";
 import {RiLayoutRightFill} from "react-icons/ri";
@@ -32,7 +32,6 @@ export const ComponentBuilder = ({jsonComponent}) => {
             <div>LOADING</div>
         )
     }
-
 }
 
 export const SiteBuilder = ({jsonComponents}) => {
@@ -54,7 +53,7 @@ const EditableComponentBuilder = ({jsonComponent}) => {
 
     const Component = components[jsonComponent.name]
 
-    function updateContent(propName, value) {
+    function updateContentProp(propName, value) {
         jsonComponent.content[propName] = value;
         setEditableComponent({
             name: editableComponent.name,
@@ -65,10 +64,17 @@ const EditableComponentBuilder = ({jsonComponent}) => {
         })
     }
 
-
+    function updateContent(data) {
+        jsonComponent.content = data
+        setEditableComponent({
+            ...editableComponent,
+            content: data
+        })
+        // console.log(editableComponent.content)
+    }
     return (
         <div>
-            <Component.Editor updateContent={updateContent}/>
+            <Component.Editor updateContent={updateContent} content={editableComponent.content}/>
             <ComponentBuilder jsonComponent={editableComponent}/>
         </div>
     )

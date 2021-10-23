@@ -13,15 +13,19 @@ export const ColorDisplay = ({color="green", title=""}) => {
     )
 }
 
-export const colorPickerFormSchema =  {
-    type: "string",
-    enum: ["green", "orange", "blue", "darkblue"],
-    enumNames: [
-        <ColorDisplay color={"green"} title={"Green"}/>,
-        <ColorDisplay color={"orange"} title={"Orange"}/>,
-        <ColorDisplay color={"blue"} title={"Blue"}/>,
-        <ColorDisplay color={"darkblue"} title={"Dark Blue"}/>,
-    ],
-    title: "Color",
-    default: "green"
+export const colorPickerFormSchema = (title="Color") => {
+    return {
+        type: "string",
+        enum: ["green", "orange", "blue", "darkblue", "white", "black"],
+        enumNames: [
+            <ColorDisplay color={"green"} title={"Green"}/>,
+            <ColorDisplay color={"orange"} title={"Orange"}/>,
+            <ColorDisplay color={"blue"} title={"Blue"}/>,
+            <ColorDisplay color={"darkblue"} title={"Dark Blue"}/>,
+            <ColorDisplay color={"white"} title={"White"}/>,
+            <ColorDisplay color={"black"} title={"Black"}/>,
+        ],
+        title: title,
+        default: "green"
+    }
 }

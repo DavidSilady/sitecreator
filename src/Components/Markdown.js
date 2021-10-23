@@ -1,20 +1,10 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import {render} from 'react-dom'
 import directive from 'remark-directive'
 import  visit  from "unist-util-visit"
 import { h } from "hastscript/html.js"
 import gfm from "remark-gfm";
-import {MDEditor} from "./MDEditor";
-import {DynamicFaIcon} from "./IconRenderer";
-
-const MyButton = ({text, href, children}) => {
-    return (
-        <div className={"bg-white text-blue"} style={{padding: "20px"}}>
-            {text} {href} {children} THIS IS BUTTON
-        </div>
-    )
-}
+import {DynamicFaIcon} from "./MarkdownComponents/IconRenderer";
 
 export const Markdown = ({className, children}) => {
     return (

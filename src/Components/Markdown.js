@@ -5,6 +5,7 @@ import  visit  from "unist-util-visit"
 import { h } from "hastscript/html.js"
 import gfm from "remark-gfm";
 import {DynamicFaIcon} from "./MarkdownComponents/IconRenderer";
+import {MarkdownImg} from "./MarkdownComponents/MarkdownImg";
 
 export const Markdown = ({className, children}) => {
     return (
@@ -21,6 +22,8 @@ export const Markdown = ({className, children}) => {
 // react markdown components list
 const components = {
     icon: DynamicFaIcon,
+    img: MarkdownImg,
+    button: MarkdownButton,
 }
 
 // remark plugin to add a custom tag to the AST

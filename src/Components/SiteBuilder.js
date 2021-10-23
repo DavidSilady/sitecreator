@@ -1,5 +1,4 @@
 import {GoldenRow, GoldenRowEditor, GoldenRowWrapper} from "./BuildComponents/GoldenRow";
-import {map} from "react-bootstrap/ElementChildren";
 import {BsLayoutWtf} from "react-icons/bs";
 import {RiLayoutRightFill} from "react-icons/ri";
 import {useEffect, useState} from "react";
@@ -37,8 +36,8 @@ export const ComponentBuilder = ({jsonComponent}) => {
 export const SiteBuilder = ({jsonComponents}) => {
     return (
         <div>
-            {jsonComponents.map(component => (
-                <ComponentBuilder jsonComponent={component}/>
+            {jsonComponents.map((component, index) => (
+                <ComponentBuilder jsonComponent={component} key={index}/>
             ))}
         </div>
     )
@@ -66,17 +65,19 @@ const EditableComponentBuilder = ({jsonComponent, index}) => {
     }
 
     function updateContent(data) {
-        jsonComponent.content = data
+        const newContent = Object.assign(editableComponent.content, data)
+        jsonComponent.content = newContent
+
         setEditableComponent({
             ...editableComponent,
-            content: data
+            content: newContent
         })
         // console.log(editableComponent.content)
     }
 
     return (
         <div>
-            <Component.Editor updateContent={updateContent} content={editableComponent.content} index={index}/>
+            <Component.Editor updateContent={updateContent} updateContentProp={updateContentProp} content={editableComponent.content} index={index}/>
             <ComponentBuilder jsonComponent={editableComponent}/>
         </div>
     )
@@ -113,7 +114,7 @@ export const EditableSiteBuilder = ({initialComponents}) => {
         <div>
             {jsonComponents.map((component, index) => {
 
-                return <EditableComponentBuilder jsonComponent={component} index={index}/>
+                return <EditableComponentBuilder jsonComponent={component} index={index} key={index}/>
             })}
         </div>
     )

@@ -7,6 +7,7 @@ import {Button} from "@material-ui/core";
 import {MarkdownArea} from "../TextFieldEditor";
 import {Markdown} from "../Markdown";
 import {getObjectFieldTemplate} from "../GridFormObjectTemplate";
+import {JsonSchemaWrapper} from "../JsonSchemaWrapper";
 
 
 const formSchema = {
@@ -14,43 +15,23 @@ const formSchema = {
     type: "object",
     properties: {
         title: {type: "string", title: "Title"},
+        subtitle: {type: "string", title: "Subtitle"},
+        href: {type: "string", title: "Link"},
+        justify: {type: "string", enum: ["text-left", "text-right"], enumNames: ["Left", "Right"], title: "Justify"},
         bgColor: colorPickerFormSchema("Background Color"),
         imgColor: colorPickerFormSchema("Image Color"),
         textColor: colorPickerFormSchema("Text Color"),
+        markdown: {type: "null"}
     }
 }
 
 
-export const GoldenRowEditor = ({updateContent, content, index}) => {
-    const [focusID, setFocusID] = useState("")
-
-    // Keep focus after rerender
-    if (focusID) { document.getElementById(focusID).focus(); }
-
-    const onChange = ({formData}, e) => {
-        if (content) {
-            updateContent(formData)
-        }
-    }
-
-    const onSubmit = ({formData}, e) => {
-        console.log("Data submitted: ", formData);
-    }
-
-    const onFocus = (id) => {
-        setFocusID(id)
-    }
+export const GoldenRowEditor = ({updateContent, updateContentProp, content, index}) => {
 
     return (
-        <div className={"container material-shadow"}
-             style={{paddingBottom: "10px", margin: "20px", borderLeft: "3px solid #31b69c"}}>
-            <Form schema={formSchema} onFocus={onFocus} onSubmit={onSubmit} onChange={onChange} formData={content}
-                  idPrefix={index}
-                  uiSchema={{
-                      "ui:ObjectFieldTemplate": getObjectFieldTemplate(4),
-                  }}
-            />
-        </div>
+        <JsonSchemaWrapper formSchema={formSchema} index={index} content={content} updateContent={updateContent}>
+            <div>TEST</div>
+        </JsonSchemaWrapper>
     )
 }
 

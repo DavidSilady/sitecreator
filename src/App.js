@@ -6,6 +6,20 @@ import {Container} from "react-bootstrap";
 import {ComponentBuilder, EditableSiteBuilder, SiteBuilder} from "./Components/SiteBuilder";
 
 const customComps = [
+   {
+        name: "ParagraphBordered",
+        content: {
+            backgroundColor: "green",
+            markdown:
+                "### **PONUKA LETNÝCH TÁBOROV 2022**\n" +
+                "****\n" +
+                "##### First minute ZĽAVA do 30.3.\n" +
+                "\\\n" +
+                "Pestrá ponuka letných táborov 2022 v najlepších rekreačných strediskách. Vida Loca - letný tábor pre tínedžerov, Vida Army - s vojenskou tematikou a airsoftom, Viva La Vida - nabitý atrakciami a v našom top stredisku či Vida YouTube & TikTok - pre začínajúcich influencerov. A to ani zďaleka nie je všetko.\n" +
+                "\n" +
+                ":button[Viac]{url=\"https://ckvida.sk/tabory\" color=\"white\" icon=\"\"}"
+        }
+    },
     {
         name: "GoldenRow",
         content: {

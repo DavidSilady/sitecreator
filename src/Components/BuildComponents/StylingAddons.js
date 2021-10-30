@@ -12,8 +12,10 @@ export function RandomRectangles({number=5, colors=["bg-green", "bg-blue", "bg-o
         if (percentLeft - height < range) {
             break;
         }
+        console.log(percentLeft)
+        console.log(height)
         rectangles.push(<div className={`bg-${colors[colorIndex]} material-shadow`} style={{height: height + "%", width: getRandomInt(20, 100) + "%"}}> </div>)
-        percentLeft = percentLeft - height;
+        percentLeft -= height;
     }
     rectangles.push(<div className={`bg-${colors[colorIndex]} material-shadow`} style={{height: percentLeft + "%", width: getRandomInt(20, 100) + "%"}}> </div>)
     return rectangles;

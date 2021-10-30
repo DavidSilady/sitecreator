@@ -4,20 +4,7 @@ import {RiLayoutRightFill} from "react-icons/ri";
 import {useEffect, useState} from "react";
 import {MDEditor} from "./MDEditor";
 import {JsonTextEditor} from "./TextFieldEditor";
-
-class CustomComponent {
-    constructor(jsx, editor, name="", icon=<BsLayoutWtf/>) {
-        this.name = name
-        this.icon = icon
-        this.Jsx = jsx
-        this.Editor = editor
-        this.content = {}
-    }
-}
-
-const components = {
-    "GoldenRow": new CustomComponent(GoldenRowWrapper, GoldenRowEditor, "GoldenRow", <RiLayoutRightFill/>)
-}
+import {components} from "./BuildComponentMap";
 
 export const ComponentBuilder = ({jsonComponent}) => {
     const Component = components[jsonComponent.name]

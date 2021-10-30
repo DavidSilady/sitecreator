@@ -2,7 +2,6 @@ import logo from './logo.svg';
 import './App.css';
 import {TextArea} from "./Components/TextFieldEditor";
 import {GoldenRow} from "./Components/BuildComponents/GoldenRow";
-import {ContextProvider} from "./Contexts/Context";
 import {Container} from "react-bootstrap";
 import {ComponentBuilder, EditableSiteBuilder, SiteBuilder} from "./Components/SiteBuilder";
 
@@ -52,15 +51,13 @@ const customComps = [
 function App() {
   return (
     <div>
-        <ContextProvider>
-            <Container fluid={true}>
-                <EditableSiteBuilder
-                    initialComponents={
-                        customComps
-                    }
-                />
-            </Container>
-        </ContextProvider>
+        <Container fluid={true}>
+            <EditableSiteBuilder
+                initialComponents={
+                    customComps
+                }
+            />
+        </Container>
     </div>
   );
 }

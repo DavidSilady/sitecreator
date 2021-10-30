@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row} from "react-bootstrap";
-import {Context} from "../../Contexts/Context"
 import Form from "@rjsf/material-ui";
 import {ColorDisplay, colorPickerFormSchema} from "../ColorDisplay";
 import {Button} from "@material-ui/core";
@@ -9,6 +8,7 @@ import {Markdown} from "../Markdown";
 import {getObjectFieldTemplate} from "../GridFormObjectTemplate";
 import {JsonSchemaWrapper} from "../JsonSchemaWrapper";
 import {MDEditor} from "../MDEditor";
+import {useMobileCheck, useWindowSize} from "../../screen";
 
 
 const formSchema = {
@@ -50,40 +50,39 @@ export const GoldenRowWrapper = ({content}) => {
 }
 
 export const GoldenRow = ({ title, subtitle, justify, id, colors, img, href, markdown} ) => {
+    const {width, height} = useWindowSize()
+
 
     const colorBG = "bg-" + colors.bg;
     const colorText = "text-" + colors.text;
     const colorImg = "text-" + colors.img
 
     return (
-        <Context.Consumer>{context =>
-            <Row id={id} className={"wedo " + colorBG}>
-                <Col md={context.screenWidth >= 992 ? 4 : 5} xs={12} className={justify === "text-left" ? "display-none" : "desktop"}>
-                    <GoldenRowCard classNames={colorText + " side-block " + justify}
-                                   markdown={markdown}
-                    />
-                </Col>
-                <Col md={context.screenWidth >= 992 ? 8 : 7} xs={12} className={"no-padding"}>
-                    <GoldenRowImage
-                        name={title}
-                        classNames={{
-                            div: "portfolio-img dark-filter ",
-                            text: "portfolio-text name-tag desktop " + colorImg
-                        }}
-                        img={img}
-                        context={context}
-                        underText={subtitle}
-                        href={href}
-                    />
-                </Col>
-                <Col md={context.screenWidth >= 992 ? 4 : 5} xs={12} className={justify === "text-left" ? "" : "mobile"}>
-                    <GoldenRowCard
-                        classNames={"side-block " + justify}
-                        markdown={markdown}
-                    />
-                </Col>
-            </Row>
-        }</Context.Consumer>
+        <Row id={id} className={"wedo " + colorBG}>
+            <Col md={width >= 992 ? 4 : 5} xs={12} className={justify === "text-left" ? "display-none" : "desktop"}>
+                <GoldenRowCard classNames={colorText + " side-block " + justify}
+                               markdown={markdown}
+                />
+            </Col>
+            <Col md={width >= 992 ? 8 : 7} xs={12} className={"no-padding"}>
+                <GoldenRowImage
+                    name={title}
+                    classNames={{
+                        div: "portfolio-img dark-filter ",
+                        text: "portfolio-text name-tag desktop " + colorImg
+                    }}
+                    img={img}
+                    underText={subtitle}
+                    href={href}
+                />
+            </Col>
+            <Col md={width >= 992 ? 4 : 5} xs={12} className={justify === "text-left" ? "" : "mobile"}>
+                <GoldenRowCard
+                    classNames={"side-block " + justify}
+                    markdown={markdown}
+                />
+            </Col>
+        </Row>
     )
 }
 
@@ -106,7 +105,7 @@ export const GoldenRowCard = ({ classNames, markdown } ) => {
     );
 }
 
-export const GoldenRowImage = ({context, underText, classNames, name, href, onClick, img, minHeight="400px" }) => {
+export const GoldenRowImage = ({underText, classNames, name, href, onClick, img, minHeight="400px" }) => {
 
     return (
         <a href={href}>

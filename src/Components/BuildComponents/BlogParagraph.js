@@ -8,15 +8,22 @@ import {colorPickerFormSchema} from "../ColorDisplay";
 import {MDEditor} from "../MDEditor";
 import React from "react";
 
-const formSchema = {
-    title: "Paragraph Bordered",
-    type: "object",
-    properties: {
-        backgroundColor: colorPickerFormSchema("Background Color")
-    }
-}
 
-export function ParagraphBorderedEditor({updateContent, updateContentProp, content, index}) {
+export function BlogParagraphEditor({updateContent, updateContentProp, content, index}) {
+    const formSchema = {
+        title: "Blog Paragraph",
+        type: "object",
+        properties: {
+            backgroundColor: colorPickerFormSchema("Background Color"),
+            displayBorders: {type: "boolean", title: "Display Borders?"},
+            // borderDensity: {type: "number", title: "Border Density"},
+        }
+    }
+
+    if (content && content.displayBorders) {
+        formSchema.properties.borderDensity = {type: "number", title: "Border Density", minimum: 2}
+    }
+
     return (
         <JsonSchemaWrapper formSchema={formSchema} index={index} content={content} updateContent={updateContent}>
             <MDEditor content={content ? content.markdown : null} handleSubmit={(value) => updateContentProp("markdown", value)} key={`${index}_MDEditor`} keyValue={`${index}_MDEditorArea`}/>
@@ -24,15 +31,19 @@ export function ParagraphBorderedEditor({updateContent, updateContentProp, conte
     )
 }
 
-export function ParagraphBorderedWrapper({content}) {
+export function BlogParagraphWrapper({content}) {
     return (
-        <ParagraphBordered markdown={content.markdown} backgroundColor={content.backgroundColor}/>
+        <BlogParagraph markdown={content.markdown} backgroundColor={content.backgroundColor} borderDensity={content.borderDensity} displayBorders={content.displayBorders}/>
     )
 }
 
-export function ParagraphBordered({markdown, backgroundColor}) {
+export function BlogParagraph({markdown, backgroundColor, displayBorders, borderDensity=5}) {
     const {width, height} = useWindowSize()
     const borderColors = filterBorderColors(backgroundColor)
+
+    if (borderDensity < 2) {
+        borderDensity = 2
+    }
 
     const styling = {
         paddingTop: "80px",
@@ -49,19 +60,28 @@ export function ParagraphBordered({markdown, backgroundColor}) {
         styling.fontSize = "1.15rem"
     }
     return (
-        <Row className={`bg-${backgroundColor}`}>
-            <Col xs={0} md={2} align={"left"}>
-                {/*<RandomRectangles colors={borderColors} number={5} range={5}/>*/}
+        <Row className={`bg-${backgroundColor} no-padding`}>
+            <Col xs={0} md={1} align={"left"} style={{paddingLeft: "0"}}>
+                {displayBorders ?
+                    <RandomRectangles colors={borderColors} number={borderDensity} range={10}/>
+                    :
+                    null
+                }
             </Col>
-            <Col xs={12} md={8}>
+
+            <Col xs={12} md={10}>
                 <div style={styling}>
                     <Markdown>
                         {markdown}
                     </Markdown>
                 </div>
             </Col>
-            <Col xs={0} md={2} align={"right"}>
-                {/*<RandomRectangles colors={borderColors} number={5} range={10}/>*/}
+            <Col xs={0} md={1} align={"right"} style={{paddingRight: "0"}}>
+                {displayBorders ?
+                    <RandomRectangles colors={borderColors} number={borderDensity} range={10}/>
+                    :
+                    null
+                }
             </Col>
         </Row>
     )

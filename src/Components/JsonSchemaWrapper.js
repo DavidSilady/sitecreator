@@ -35,6 +35,7 @@ export const JsonSchemaWrapper = ({updateContent, content, index, formSchema, ch
                       "ui:ObjectFieldTemplate": getObjectFieldTemplate(4),
                   }}
                   children={true}
+                  // liveValidate
             />
             {children}
         </div>

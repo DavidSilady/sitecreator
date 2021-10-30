@@ -1,5 +1,6 @@
+import {getRandomInt, getRandomIntExcept} from "../../helpers";
 
-export function RandomRectangles({number=5, colors=["bg-green", "bg-blue", "bg-orange", "bg-darkblue"], range=5}) {
+export function RandomRectangles({number=5, colors=["green", "blue", "orange", "darkblue"], range=5}) {
     const rectangles = [];
     let percentLeft = 100;
     let baseHeight = 100 / number
@@ -7,13 +8,11 @@ export function RandomRectangles({number=5, colors=["bg-green", "bg-blue", "bg-o
     let lastColorIndex = -1;
     while (true) {
         let height = getRandomInt(baseHeight - range, baseHeight + range)
-        colorIndex = getRandomInt(0, colors.length, lastColorIndex)
+        colorIndex = getRandomIntExcept(0, colors.length, lastColorIndex)
         lastColorIndex = colorIndex
         if (percentLeft - height < range) {
             break;
         }
-        console.log(percentLeft)
-        console.log(height)
         rectangles.push(<div className={`bg-${colors[colorIndex]} material-shadow`} style={{height: height + "%", width: getRandomInt(20, 100) + "%"}}> </div>)
         percentLeft -= height;
     }
@@ -21,12 +20,3 @@ export function RandomRectangles({number=5, colors=["bg-green", "bg-blue", "bg-o
     return rectangles;
 }
 
-export function getRandomInt(min=0, max=0, except = -1) {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    let output =  Math.floor(Math.random() * (max - min) + min)//The maximum is exclusive and the minimum is inclusive
-    while (output === except) {
-        output = Math.floor(Math.random() * (max - min) + min)
-    }
-    return output
-}

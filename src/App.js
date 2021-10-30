@@ -9,9 +9,11 @@ const customComps = [
    {
         name: "ParagraphBordered",
         content: {
-            backgroundColor: "green",
+            backgroundColor: "orange",
+            borderDensity: 5,
+            displayBorders: true,
             markdown:
-                "### **PONUKA LETNÝCH TÁBOROV 2022**\n" +
+                "### :icon[FaCampground] **PONUKA LETNÝCH TÁBOROV 2022**\n" +
                 "****\n" +
                 "##### First minute ZĽAVA do 30.3.\n" +
                 "\\\n" +

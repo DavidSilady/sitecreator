@@ -28,6 +28,7 @@
     "remark-directive": "^2.0.0",
     "remark-gfm": "^1.0.0",
     "unist-util-visit": "^4.0.0",
+    "uuid": "^8.3.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

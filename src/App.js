@@ -8,6 +8,7 @@ import {ComponentBuilder, EditableSiteBuilder, SiteBuilder} from "./Components/S
 const customComps = [
    {
         name: "ParagraphBordered",
+        id: "saojsa7a214",
         content: {
             backgroundColor: "orange",
             borderDensity: 5,
@@ -24,6 +25,7 @@ const customComps = [
     },
     {
         name: "GoldenRow",
+        id: "saojgfa214",
         content: {
             title: "Title",
             subtitle: "Subtitle",
@@ -45,6 +47,7 @@ const customComps = [
     },
     {
         name: "GoldenRow",
+        id: "sa215fa214",
         content: {
             title: "Title",
             subtitle: "Subtitle",

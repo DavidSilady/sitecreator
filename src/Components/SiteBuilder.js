@@ -88,8 +88,12 @@ const EditableComponentBuilder = ({jsonComponent, index, moveComponentUp, moveCo
         <div>
             {isEditing ?
                 <div style={{display: "flex", justifyContent: "right", width: "100%", padding: "0 20px"}}>
-                    <Component.Editor updateContent={updateContent} updateContentProp={updateContentProp}
-                                      content={editableComponent.content} index={index}/>
+                    <Component.Editor
+                        updateContent={updateContent}
+                        updateContentProp={updateContentProp}
+                        content={editableComponent.content}
+                        index={index}
+                    />
                     <div style={{display: "block"}}>
                         <EditButtons/>
                     </div>

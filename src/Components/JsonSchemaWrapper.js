@@ -1,12 +1,19 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Form from "@rjsf/material-ui";
 import {getObjectFieldTemplate} from "./GridFormObjectTemplate";
 
 export const JsonSchemaWrapper = ({updateContent, content, index, formSchema, children}) => {
     const [focusID, setFocusID] = useState("")
 
+    const focus = () => {
+        if (focusID) {
+            document.getElementById(focusID).focus();
+            console.log(focusID)
+        }
+    }
+
     // Keep focus after rerender
-    if (focusID) { document.getElementById(focusID).focus(); }
+    focus()
 
     const onChange = ({formData}, e) => {
         if (content) {
@@ -35,6 +42,7 @@ export const JsonSchemaWrapper = ({updateContent, content, index, formSchema, ch
                       "ui:ObjectFieldTemplate": getObjectFieldTemplate(4),
                   }}
                   children={true}
+                  key={"rjsf-main-" + index}
                   // liveValidate
             />
             {children}

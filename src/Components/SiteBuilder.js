@@ -1,14 +1,16 @@
 import {GoldenRow, GoldenRowEditor, GoldenRowWrapper} from "./BuildComponents/GoldenRow";
 import {BsLayoutWtf} from "react-icons/bs";
 import {RiLayoutRightFill} from "react-icons/ri";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {MDEditor} from "./MDEditor";
 import {JsonTextEditor} from "./TextFieldEditor";
 import {componentMap} from "./BuildComponentMap";
 import {Box, Button, IconButton, Modal} from "@material-ui/core";
-import {AiFillDelete, AiFillEdit} from "react-icons/ai";
+import {AiFillDelete, AiFillEdit, AiFillSave} from "react-icons/ai";
 import {FaArrowAltCircleDown, FaArrowAltCircleUp, FaPlusCircle} from "react-icons/fa";
 import Grid from "@material-ui/core/Grid";
+import {JsonSchemaWrapper} from "./JsonSchemaWrapper";
+import {MdContentCopy} from "react-icons/all";
 
 export const ComponentBuilder = ({jsonComponent}) => {
     const Component = componentMap[jsonComponent.name]
@@ -37,6 +39,7 @@ export const SiteBuilder = ({jsonComponents}) => {
 const EditableComponentBuilder = ({jsonComponent, index, moveComponentUp, moveComponentDown, deleteComponent}) => {
     const [editableComponent, setEditableComponent] = useState({})
     const [isEditing, setIsEditing] = useState(false)
+
 
 
     useEffect(() => {
@@ -108,14 +111,17 @@ const EditableComponentBuilder = ({jsonComponent, index, moveComponentUp, moveCo
     )
 }
 
-export const EditableSiteBuilder = ({initialComponents}) => {
+export const EditableSiteBuilder = ({initialComponents, initialConfig}) => {
     const [jsonComponents, setJsonComponents] = useState([])
+    const [config, setConfig] = useState({})
     const [newComponentModalOpen, setNewComponentModalOpen] = useState(false)
     const [newComponentIndex, setNewComponentIndex] = useState(0)
+    const [copySuccess, setCopySuccess] = useState(false)
 
     useEffect(() => {
         setJsonComponents(initialComponents)
-    }, [initialComponents])
+        setConfig(initialConfig)
+    }, [initialComponents, initialConfig])
 
     const modalStyle = {
         position: 'absolute',
@@ -131,13 +137,11 @@ export const EditableSiteBuilder = ({initialComponents}) => {
 
     function moveComponentUp(index) {
         const newArray = moveElement(jsonComponents, index, index - 1)
-        initialComponents = [... newArray]
         setJsonComponents([... newArray])
     }
 
     function moveComponentDown(index) {
         const newArray = moveElement(jsonComponents, index, index + 1)
-        initialComponents = [... newArray]
         setJsonComponents([... newArray])
     }
 
@@ -171,8 +175,51 @@ export const EditableSiteBuilder = ({initialComponents}) => {
         setNewComponentModalOpen(false)
     }
 
+    function updateConfig(data) {
+        const newConfig = Object.assign(config, data)
+        // setConfig({... newConfig})
+        setConfig({... newConfig})
+    }
+
+    function saveSite() {
+        console.log(config)
+    }
+    function deleteSite() {}
+
     return (
         <div>
+            <div className={"container material-shadow"} style={{padding: "20px", margin: "20px", borderLeft: "3px solid #31b69c"}}>
+                <div style={{display: "flex"}}>
+                    <JsonSchemaWrapper key={"json-schema-wrapper-config"} updateContent={updateConfig} content={config} index={"site-config-schema"} formSchema={siteConfigFormSchema}>
+                        <Button startIcon={<MdContentCopy/>}
+                                onClick={() => {
+                                    navigator.clipboard.writeText(`https://ckvida.sk/w/${config.endpoint}`).then(
+                                        () => {
+                                            setCopySuccess(true)
+                                        }
+                                    )
+                                }}
+                        >
+                            https://ckvida.sk/w/{config.endpoint}
+                        </Button>
+                        <div
+                            className={`alert alert-success ${copySuccess ? 'alert-shown' : 'alert-hidden'}`}
+                            onTransitionEnd={() => setCopySuccess(false)}
+                        >
+                            URL <strong>copied</strong>!
+                        </div>
+                    </JsonSchemaWrapper>
+                    <div style={{display: "flex", marginLeft: "auto"}}>
+                        <div style={{alignSelf: "flex-end"}}>
+                            <IconButton color={"primary"} onClick={saveSite}><AiFillSave/></IconButton>
+                        </div>
+                        <div style={{alignSelf: "flex-end"}}>
+                            <IconButton color={"secondary"} onClick={deleteSite}><AiFillDelete/></IconButton>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             {jsonComponents.map((component, index) => {
                 return (
                     <div style={{paddingTop: "20px"}}>
@@ -193,11 +240,7 @@ export const EditableSiteBuilder = ({initialComponents}) => {
             <div style={{textAlign: "center", padding: "40px 0"}}>
                 <IconButton color={"primary"} aria-label={"Add Component"} onClick={() => openAddComponentModal(jsonComponents.length)}><FaPlusCircle/></IconButton>
             </div>
-
-            <Modal
-                open={newComponentModalOpen}
-                onClose={closeAddComponentModal}
-            >
+            <Modal open={newComponentModalOpen} onClose={closeAddComponentModal}>
                 <Box sx={modalStyle}>
                     <Grid container spacing={2}>
                         {
@@ -221,6 +264,15 @@ export const EditableSiteBuilder = ({initialComponents}) => {
             </Modal>
         </div>
     )
+}
+
+const siteConfigFormSchema = {
+    title: "Site Configuration",
+    type: "object",
+    properties: {
+        endpoint: {type: "string", title: "Endpoint", description: "URL Path"},
+        display: {type: "boolean", title: "Display site?"},
+    }
 }
 
 function generateID() {

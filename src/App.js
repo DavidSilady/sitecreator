@@ -13,6 +13,9 @@ function App() {
                 initialComponents={
                     []
                 }
+                initialConfig={
+                    {endpoint: "empty", display: false}
+                }
             />
         </Container>
     </div>

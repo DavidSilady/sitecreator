@@ -6,7 +6,7 @@ import {MDEditor} from "./MDEditor";
 import {JsonTextEditor} from "./TextFieldEditor";
 import {components} from "./BuildComponentMap";
 import {Button} from "@material-ui/core";
-import {AiFillDownCircle, AiFillEdit, AiFillUpCircle} from "react-icons/all";
+import {AiFillDelete, AiFillDownCircle, AiFillEdit, AiFillUpCircle} from "react-icons/ai";
 
 export const ComponentBuilder = ({jsonComponent}) => {
     const Component = components[jsonComponent.name]
@@ -75,9 +75,10 @@ const EditableComponentBuilder = ({jsonComponent, index, moveComponentUp, moveCo
                 null
             }
             <div style={{display: "flex", justifyContent: "right", width: "100%", padding: "0 20px"}}>
-                <Button color={isEditing ? "secondary" : "primary"} variant={"contained"} onClick={() => {setIsEditing(!isEditing)}}><h5><AiFillEdit/></h5></Button>
+                <Button color={"primary"} variant={isEditing ? "outlined" : "contained"} onClick={() => {setIsEditing(!isEditing)}}><h5><AiFillEdit/></h5></Button>
                 <Button color={"primary"} variant={"contained"} onClick={moveComponentUp}><h5><AiFillUpCircle/></h5></Button>
                 <Button color={"primary"} variant={"contained"} onClick={moveComponentDown}><h5><AiFillDownCircle/></h5></Button>
+                <Button style={{marginLeft: "10px"}} color={"secondary"} variant={"contained"} onClick={deleteComponent}><h5><AiFillDelete/></h5></Button>
             </div>
             <ComponentBuilder jsonComponent={editableComponent}/>
         </div>
@@ -104,10 +105,10 @@ export const EditableSiteBuilder = ({initialComponents}) => {
     }
 
     function deleteComponent(index) {
-        if (confirm("Are you sure you want to delete an element?")) {
+
+        if (window.confirm("Are you sure you want to delete an element?")) {
             if (index > -1) {
                 jsonComponents.splice(index, 1);
-                setJsonComponents([... jsonComponents])
                 setJsonComponents([... jsonComponents])
             }
         }

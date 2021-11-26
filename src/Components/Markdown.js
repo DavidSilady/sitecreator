@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import directive from 'remark-directive'
-import  visit  from "unist-util-visit"
+import  {visit}  from "unist-util-visit"
 import { h } from "hastscript/html.js"
 import gfm from "remark-gfm";
 import {DynamicFaIcon} from "./MarkdownComponents/IconRenderer";

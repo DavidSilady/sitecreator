@@ -159,7 +159,7 @@ export const EditableSiteBuilder = ({initialComponents, initialConfig}) => {
         const newComponent = {
             "name": componentKey,
             "id": generateID(),
-            "content": componentMap[componentKey].defaultContent,
+            "content": {... componentMap[componentKey].defaultContent},
         }
         const newArray = addElementToIndex(jsonComponents, newComponentIndex, newComponent)
         setJsonComponents([... newArray])

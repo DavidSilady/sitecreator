@@ -950,6 +950,7 @@ hr {
   font-size: .9rem;
   text-decoration: none;
   color: #F68529;
+  transition-duration: .2s;
 }
 
 .icon-picker:hover {

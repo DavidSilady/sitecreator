@@ -9,7 +9,6 @@ export const ColorDisplay = ({color="green", title=""}) => {
                 {title}
             </div>
         </div>
-
     )
 }
 

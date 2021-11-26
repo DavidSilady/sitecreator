@@ -18,7 +18,7 @@ class CustomComponent {
 const defaultParagraphBorderedContent = {
     backgroundColor: "orange",
     borderDensity: 5,
-    displayBorders: true,
+    displayBorders: false,
     markdown:
         "### :icon[FaCampground] **PONUKA LETNÝCH TÁBOROV**\n" +
         "****\n" +

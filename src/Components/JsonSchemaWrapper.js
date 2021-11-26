@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Form from "@rjsf/material-ui";
 import {getObjectFieldTemplate} from "./GridFormObjectTemplate";
 
-export const JsonSchemaWrapper = ({updateContent, content, index, formSchema, children}) => {
+export const JsonSchemaWrapper = ({updateContent=()=>{}, content, index, formSchema, children, hideSubmit=true, handleSubmit=()=>{}}) => {
     const [focusID, setFocusID] = useState("")
 
     const focus = () => {
@@ -22,7 +22,7 @@ export const JsonSchemaWrapper = ({updateContent, content, index, formSchema, ch
     }
 
     const onSubmit = ({formData}, e) => {
-        console.log("Data submitted: ", formData);
+        handleSubmit(formData)
     }
 
     const onFocus = (id) => {
@@ -41,11 +41,13 @@ export const JsonSchemaWrapper = ({updateContent, content, index, formSchema, ch
                   uiSchema={{
                       "ui:ObjectFieldTemplate": getObjectFieldTemplate(4),
                   }}
-                  children={true}
+                  children={hideSubmit}
                   key={"rjsf-main-" + index}
                   // liveValidate
             />
-            {children}
+            <div style={{paddingTop: "20px"}}>
+                {children}
+            </div>
         </div>
     )
 }

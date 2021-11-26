@@ -7,10 +7,28 @@ import * as Icons from "react-icons/fa";
 import {FaIcons, FaImage, FaRegWindowMinimize} from "react-icons/fa";
 import {BiInfoSquare} from "react-icons/bi";
 import {MdWrapText} from "react-icons/md";
-import {Box, Modal, TextField} from "@material-ui/core";
+import {Box, Button, Modal, TextField} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import reactModal from '@prezly/react-promise-modal';
+import {JsonSchemaWrapper} from "./JsonSchemaWrapper";
+import {colorPickerFormSchema} from "./ColorDisplay";
+import {getObjectFieldTemplate} from "./GridFormObjectTemplate";
+import Form from "@rjsf/material-ui";
+import {DynamicFaIcon} from "./MarkdownComponents/IconRenderer";
 
+const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: "70%",
+    height: "100%",
+    overflow: "scroll",
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+}
 
 //https://codesandbox.io/s/react-mde-latest-forked-f9ti5?file=/src/index.js
 //https://github.com/andrerpena/react-mde
@@ -36,18 +54,6 @@ export function MDEditor({content, handleSubmit, keyValue = ""}) {
     // console.log(toolbarCommands)
     // toolbarCommands[0] = ['header', 'bold', 'italic']
 
-    const customIcon = {
-        name: "custom-icon",
-        icon: () => (
-            <FaIcons/>
-        ),
-        execute: async opts => {
-            await reactModal(({show, onSubmit, onDismiss}) => (
-                <IconModal onSubmit={onSubmit} onDismiss={onDismiss} show={show} opts={opts}/>
-            ))
-        }
-    };
-
     const toolbarCommands = [
         [
             'header', 'bold', 'italic', 'custom-newline', 'custom-vertical-line'
@@ -67,8 +73,6 @@ export function MDEditor({content, handleSubmit, keyValue = ""}) {
         'custom-newline': customNewline,
         'custom-vertical-line': customVerticalLine,
     }
-
-
 
     return (
         <>
@@ -97,27 +101,67 @@ export function MDEditor({content, handleSubmit, keyValue = ""}) {
     );
 }
 
-function IconModal({show, onDismiss, onSubmit, opts,}) {
-    const [searchTerm, setSearchTerm] = useState("")
-
-    const modalStyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        minWidth: "70%",
-        height: "100%",
-        overflow: "scroll",
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
+const modalButtonJsonForm = {
+    title: "Button",
+    type: "object",
+    properties: {
+        color: colorPickerFormSchema("Color"),
+        url: {type: "string", title: "Url"},
+        text: {type: "string", title: "Text"},
     }
+}
+
+function ButtonModal({show, onDismiss, onSubmit, opts}) {
+    // const [icon, setIcon] = useState("")
+
+    let icon = ""
+    return (
+        <Modal open={show} onClose={onDismiss} title={<h1>Test</h1>}>
+            <Box sx={modalStyle}>
+                <div style={{paddingTop: "20px"}}>
+                    <Button variant={'contained'} onClick={async () => {
+                        const key = await reactModal(({show, onDismiss, onSubmit}) => (
+                            <IconModal onSubmit={onSubmit} onDismiss={onDismiss} show={show} current={icon}/>
+                        ))
+                        if (key) {
+                            // setIcon(key)
+                            icon = key
+                        } else {
+                            // setIcon("")
+                            icon = ""
+                        }
+                    }}>
+                        Pick Icon
+                    </Button>
+                </div>
+
+                <Form schema={modalButtonJsonForm} onSubmit={({formData}, e) => {
+                    onSubmit({
+                        ...formData,
+                        icon: icon
+                    })
+                }}
+                      idPrefix={"button-modal"}
+                      uiSchema={{
+                          "ui:ObjectFieldTemplate": getObjectFieldTemplate(4),
+                      }}
+                      // children={true}
+                      key={"rjsf-main-button-modal"}
+                    // liveValidate
+                />
+
+            </Box>
+        </Modal>
+    )
+}
+
+function IconModal({show, onDismiss, onSubmit, current=""}) {
+    const [searchTerm, setSearchTerm] = useState("")
 
     return (
         <Modal open={show} onClose={onDismiss} title={<h1>Test</h1>}>
             <Box sx={modalStyle}>
-                <div style={{padding: "20px"}}>
+                <div style={{padding: "20px", display: "flex"}}>
                     <TextField
                         id="outlined-multiline-flexible"
                         label="Search"
@@ -128,8 +172,29 @@ function IconModal({show, onDismiss, onSubmit, opts,}) {
                             setSearchTerm(event.target.value)
                         }}
                     />
+                    <div style={{paddingTop: "20px", marginLeft: "auto", textAlign: "center"}}>
+                        <h3 ><DynamicFaIcon children={current}/></h3>
+                        <p>{current} {current ? "(current)" : "" }</p>
+                    </div>
                 </div>
                 <Grid container spacing={2}>
+                    <Grid item xs={3} key={"None"}>
+                        <a
+                            onClick={() => {
+                                onSubmit("")
+                            }}
+                            className={"icon-picker"}
+                            style={{
+                                padding: "5px",
+                                margin: "0px",
+                            }}
+                        >
+                            <h3><br/></h3>
+                            <p>
+                                None
+                            </p>
+                        </a>
+                    </Grid>
                     {Object.keys(Icons)
                         .filter(key => key.toLowerCase().includes(searchTerm.toLowerCase()))
                         .map(key => {
@@ -138,10 +203,7 @@ function IconModal({show, onDismiss, onSubmit, opts,}) {
                                 <Grid item xs={3} key={key}>
                                     <a
                                         onClick={() => {
-                                            opts.textApi.replaceSelection(`:icon[${key}]`);
-                                            const {start, end} = opts.textApi.getState().selection
-                                            opts.textApi.setSelectionRange({start: start - key.length, end: end - 1})
-                                            onSubmit()
+                                            onSubmit(key)
                                         }}
                                         className={"icon-picker"}
                                         style={{
@@ -163,6 +225,23 @@ function IconModal({show, onDismiss, onSubmit, opts,}) {
     )
 }
 
+const customIcon = {
+    name: "custom-icon",
+    icon: () => (
+        <FaIcons/>
+    ),
+    execute: async opts => {
+        const key = await reactModal(({show, onSubmit, onDismiss}) => (
+            <IconModal onSubmit={onSubmit} onDismiss={onDismiss} show={show} opts={opts}/>
+        ))
+        if (key) {
+            opts.textApi.replaceSelection(`:icon[${key}]`);
+            const {start, end} = opts.textApi.getState().selection
+            opts.textApi.setSelectionRange({start: start - (key.length + 1), end: end - 1})
+        }
+    }
+};
+
 
 const customImg = {
     name: "custom-img",
@@ -181,10 +260,16 @@ const customButton = {
     icon: () => (
         <BiInfoSquare/>
     ),
-    execute: opts => {
-        opts.textApi.replaceSelection(':button[Text]{url="https://ckvida.sk" color="white" icon=""}');
-        const {start, end} = opts.textApi.getState().selection
-        opts.textApi.setSelectionRange({start: start - 41, end: end - 24})
+    execute: async opts => {
+        const data = await reactModal(({show, onSubmit, onDismiss}) => (
+            <ButtonModal opts={opts} show={show} onDismiss={onDismiss} onSubmit={onSubmit}/>
+        ))
+        if (data) {
+            opts.textApi.replaceSelection(`:button[${data.text ? data.text : "text"}]{url="${data.url}" color="${data.color ? data.color : "white"}" icon="${data.icon ? data.icon : ""}"}`);
+            const {start, end} = opts.textApi.getState().selection
+            opts.textApi.setSelectionRange({start: start - 41, end: end - 24})
+        }
+
     }
 }
 

@@ -3,24 +3,22 @@ import {useEffect, useState} from "react";
 import ReactMde from "react-mde";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import {Markdown} from "./Markdown";
+import * as Icons from "react-icons/fa";
 import {FaIcons, FaImage, FaRegWindowMinimize} from "react-icons/fa";
 import {BiInfoSquare} from "react-icons/bi";
 import {MdWrapText} from "react-icons/md";
-import {Box, Modal} from "@material-ui/core";
+import {Box, Modal, TextField} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import * as Icons from "react-icons/fa";
-import {IconButton} from "material-ui";
-import {DynamicFaIcon} from "./MarkdownComponents/IconRenderer";
 import reactModal from '@prezly/react-promise-modal';
 
 
 //https://codesandbox.io/s/react-mde-latest-forked-f9ti5?file=/src/index.js
 //https://github.com/andrerpena/react-mde
-export function MDEditor({content, handleSubmit, keyValue=""}) {
+export function MDEditor({content, handleSubmit, keyValue = ""}) {
     const [value, setValue] = React.useState("");
     const [selectedTab, setSelectedTab] = React.useState("write");
     const [iconModalOpen, setIconModalOpen] = useState(false)
-    const [newIcon, setNewIcon] = useState("FaBeer")
+
 
     function onIconModalOpen() {
         setIconModalOpen(true)
@@ -44,35 +42,8 @@ export function MDEditor({content, handleSubmit, keyValue=""}) {
             <FaIcons/>
         ),
         execute: async opts => {
-            const result = await reactModal(({show, onSubmit, onDismiss}) => (
-                <Modal open={show} onClose={onDismiss}>
-                    <Box sx={modalStyle}>
-                        {
-                            Icons
-                                ?
-                                Object.keys(Icons).map(key => {
-                                    const IconComponent = Icons[key]
-                                    return (
-                                        <a
-                                            onClick={() => {
-                                                opts.textApi.replaceSelection(`:icon[${key}]`);
-                                                const {start, end} = opts.textApi.getState().selection
-                                                opts.textApi.setSelectionRange({start: start - 8, end: end - 1})
-                                                onSubmit()
-                                            }}
-                                            style={{
-                                                padding: "5px"
-                                            }}
-                                        >
-                                            <IconComponent/>
-                                        </a>
-                                    )
-                                })
-                                :
-                                null
-                        }
-                    </Box>
-                </Modal>
+            await reactModal(({show, onSubmit, onDismiss}) => (
+                <IconModal onSubmit={onSubmit} onDismiss={onDismiss} show={show} opts={opts}/>
             ))
         }
     };
@@ -97,17 +68,7 @@ export function MDEditor({content, handleSubmit, keyValue=""}) {
         'custom-vertical-line': customVerticalLine,
     }
 
-    const modalStyle = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    }
+
 
     return (
         <>
@@ -116,7 +77,10 @@ export function MDEditor({content, handleSubmit, keyValue=""}) {
                 value={value}
                 commands={commands}
                 toolbarCommands={toolbarCommands}
-                onChange={(value) => {setValue(value); handleSubmit(value)}}
+                onChange={(value) => {
+                    setValue(value);
+                    handleSubmit(value)
+                }}
                 selectedTab={selectedTab}
                 onTabChange={setSelectedTab}
                 generateMarkdownPreview={(markdown) =>
@@ -133,7 +97,71 @@ export function MDEditor({content, handleSubmit, keyValue=""}) {
     );
 }
 
+function IconModal({show, onDismiss, onSubmit, opts,}) {
+    const [searchTerm, setSearchTerm] = useState("")
 
+    const modalStyle = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        minWidth: "70%",
+        height: "100%",
+        overflow: "scroll",
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    }
+
+    return (
+        <Modal open={show} onClose={onDismiss} title={<h1>Test</h1>}>
+            <Box sx={modalStyle}>
+                <div style={{padding: "20px"}}>
+                    <TextField
+                        id="outlined-multiline-flexible"
+                        label="Search"
+                        value={searchTerm}
+                        onChange={(event) => {
+                            console.log(event.target.value)
+                            console.log(searchTerm)
+                            setSearchTerm(event.target.value)
+                        }}
+                    />
+                </div>
+                <Grid container spacing={2}>
+                    {Object.keys(Icons)
+                        .filter(key => key.toLowerCase().includes(searchTerm.toLowerCase()))
+                        .map(key => {
+                            const IconComponent = Icons[key]
+                            return (
+                                <Grid item xs={3} key={key}>
+                                    <a
+                                        onClick={() => {
+                                            opts.textApi.replaceSelection(`:icon[${key}]`);
+                                            const {start, end} = opts.textApi.getState().selection
+                                            opts.textApi.setSelectionRange({start: start - key.length, end: end - 1})
+                                            onSubmit()
+                                        }}
+                                        className={"icon-picker"}
+                                        style={{
+                                            padding: "5px",
+                                            margin: "0px",
+                                        }}
+                                    >
+                                        <h3><IconComponent/></h3>
+                                        <p>
+                                            {key}
+                                        </p>
+                                    </a>
+                                </Grid>
+                            )
+                        })}
+                </Grid>
+            </Box>
+        </Modal>
+    )
+}
 
 
 const customImg = {

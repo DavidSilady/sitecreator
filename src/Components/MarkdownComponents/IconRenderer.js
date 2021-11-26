@@ -8,5 +8,8 @@ export const DynamicFaIcon = ({ children }) => {
         return <Icons.FaHeart />;
     }
 
-    return <IconComponent />;
+
+    return (
+        <IconComponent style={{verticalAlign: 'baseline'}}/>
+        );
 };

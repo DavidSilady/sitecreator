@@ -944,3 +944,36 @@ button:focus {
 hr {
   opacity: .65;
 }
+
+.icon-picker {
+  text-align: center;
+  font-size: .9rem;
+  text-decoration: none;
+  color: #F68529;
+}
+
+.icon-picker:hover {
+  text-decoration: none;
+  color: #fbac2e;
+  cursor: pointer;
+  /*background-color: #e2e2e2;*/
+  transition-duration: .2s;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition-duration: .1s;
+}
+
+a:hover {
+  color: inherit;
+  font-weight: bolder;
+  transition-duration: .1s;
+}
+
+a svg:hover {
+  color: inherit;
+  transform: scale(1.2);
+  transition-duration: .1s;
+}

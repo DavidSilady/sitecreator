@@ -37,7 +37,7 @@ const defaultGoldenRowContent = {
     img: "",
     bgColor: "orange",
     textColor: "white",
-    imgColor: "green",
+    imgColor: "white",
     href: "",
     markdown:
         "### **PONUKA LETNÝCH TÁBOROV**\n" +

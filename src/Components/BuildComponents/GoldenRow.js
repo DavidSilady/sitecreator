@@ -68,7 +68,7 @@ export const GoldenRow = ({ title, subtitle, justify, id, colors, img, href, mar
                 <GoldenRowImage
                     name={title}
                     classNames={{
-                        div: "portfolio-img dark-filter ",
+                        div: "portfolio-img ",
                         text: "portfolio-text name-tag desktop " + colorImg
                     }}
                     img={img}

@@ -1,9 +1,10 @@
-import {BsLayoutWtf} from "react-icons/bs";
+import {BsImageFill, BsLayoutWtf} from "react-icons/bs";
 import {GoldenRowEditor, GoldenRowWrapper} from "./BuildComponents/GoldenRow";
 import {RiLayoutMasonryFill, RiLayoutRightFill} from "react-icons/ri";
 import {BlogParagraphEditor, BlogParagraphWrapper} from "./BuildComponents/BlogParagraph";
 import {ImParagraphLeft} from "react-icons/im";
 import {GoldenTextRowEditor, GoldenTextRowWrapper} from "./BuildComponents/GoldenTextRow";
+import {BannerEditor, BannerWrapper} from "./BuildComponents/Banner";
 
 class CustomComponent {
     constructor(jsx, editor, name="", icon=<BsLayoutWtf/>, defaultContent={}) {
@@ -79,8 +80,23 @@ const defaultGoldenTextRowContent = {
         "08:00 - 14:00",
 }
 
+const defaultBannerContent = {
+    imgHeight: 450,
+    img: "https://ckvida.sk/static/media/alt2-title.408cc061.jpg",
+    markdown: "# [:icon[Logo] ](url)\n" +
+        "\n" +
+        "### :cursive[Cestovná Kancelária]\n" +
+        "\n" +
+        ":row[\n" +
+        ":button[Tábory]{url=\"undefined\" color=\"white\" icon=\"FaCampground\" minWidth=\"200px\"}\n" +
+        ":button[Pre školy]{url=\"undefined\" color=\"white\" icon=\"FaSchool\" minWidth=\"200px\"}\n" +
+        ":button[Rodinné pobyty]{url=\"undefined\" color=\"white\" icon=\"FaUserPlus\" minWidth=\"200px\"}\n" +
+        "]\n"
+}
+
 export const componentMap = {
     "GoldenRow": new CustomComponent(GoldenRowWrapper, GoldenRowEditor, "Golden Row", <RiLayoutRightFill/>, defaultGoldenRowContent),
     "GoldenTextRow": new CustomComponent(GoldenTextRowWrapper, GoldenTextRowEditor, "Golden Text Row", <RiLayoutRightFill/>, defaultGoldenTextRowContent),
     "ParagraphBordered": new CustomComponent(BlogParagraphWrapper, BlogParagraphEditor, "Paragraph Bordered", <ImParagraphLeft/>, defaultParagraphBorderedContent),
+    "Banner": new CustomComponent(BannerWrapper, BannerEditor, "Banner", <BsImageFill/>, defaultBannerContent),
 }

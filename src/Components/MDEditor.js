@@ -15,6 +15,8 @@ import {colorPickerFormSchema} from "./ColorDisplay";
 import {getObjectFieldTemplate} from "./GridFormObjectTemplate";
 import Form from "@rjsf/material-ui";
 import {DynamicFaIcon} from "./MarkdownComponents/IconRenderer";
+import {MarkdownCursive} from "./MarkdownComponents/MarkdownCursive";
+import {RiArrowLeftRightFill} from "react-icons/all";
 
 const modalStyle = {
     position: 'absolute',
@@ -67,6 +69,9 @@ export function MDEditor({content, handleSubmit, keyValue = ""}) {
         [
             'custom-mail-link', 'custom-tel-link',
         ],
+        [
+            'custom-cursive',
+        ],
     ]
 
     const commands = {
@@ -77,6 +82,7 @@ export function MDEditor({content, handleSubmit, keyValue = ""}) {
         'custom-vertical-line': customVerticalLine,
         'custom-mail-link': customMailLink,
         'custom-tel-link': customTelLink,
+        'custom-cursive': customCursive,
     }
 
     return (
@@ -112,6 +118,7 @@ const modalButtonJsonForm = {
     properties: {
         color: colorPickerFormSchema("Color"),
         url: {type: "string", title: "Url"},
+        minWidth: {type: "number", title: "Min Width"},
         text: {type: "string", title: "Text"},
     }
 }
@@ -270,7 +277,15 @@ const customButton = {
             <ButtonModal opts={opts} show={show} onDismiss={onDismiss} onSubmit={onSubmit}/>
         ))
         if (data) {
-            opts.textApi.replaceSelection(`:button[${data.text ? data.text : "text"}]{url="${data.url}" color="${data.color ? data.color : "white"}" icon="${data.icon ? data.icon : ""}"}`);
+            opts.textApi.replaceSelection(
+                `:button[
+                ${data.text ? data.text : "text"}]
+                {
+                url="${data.url}" 
+                color="${data.color ? data.color : "white"}" 
+                icon="${data.icon ? data.icon : ""}"} 
+                ${data.minWidth ? `minWidth="${data.minWidth}px"` : ``}
+            `)
             const {start, end} = opts.textApi.getState().selection
             opts.textApi.setSelectionRange({start: start - 41, end: end - 24})
         }
@@ -321,5 +336,29 @@ const customTelLink = {
         opts.textApi.replaceSelection(`[:icon[FaPhoneAlt] text](tel:${exampleTel})`)
         const {start, end} = opts.textApi.getState().selection
         opts.textApi.setSelectionRange({start: start - (exampleTel.length + 1), end: end - 1})
+    }
+}
+
+const customCursive = {
+    name: "custom-cursive",
+    icon: () => (
+        <MarkdownCursive children={"Cursive"}/>
+    ),
+    execute: opts => {
+        opts.textApi.replaceSelection(`:cursive[]`)
+        const {start, end} = opts.textApi.getState().selection
+        opts.textApi.setSelectionRange({start: start - 1, end: end - 1})
+    },
+}
+
+const customRow = {
+    name: "custom-row",
+    icon: () => (
+        <RiArrowLeftRightFill/>
+    ),
+    execute: opts => {
+        opts.textApi.replaceSelection(`:row[]`)
+        const {start, end} = opts.textApi.getState().selection
+        opts.textApi.setSelectionRange({start: start - 1, end: end - 1})
     }
 }

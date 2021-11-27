@@ -20,6 +20,10 @@ html, body {
 .cls-2{fill: #fbac2e;}
 .cls-3{fill: #f68529;}
 
+.text-color g path{
+  fill: currentColor;
+}
+
 .nav-logo {
   transition-duration: .4s;
 }
@@ -153,7 +157,7 @@ html, body {
   text-transform: uppercase;
   display: inline-block;
   font-size: 16px;
-  margin-top: 15px;
+  margin: 10px 15px;
   border-radius: 0;
   letter-spacing: 1px;
 }
@@ -161,7 +165,6 @@ html, body {
 .button:hover{
   cursor: pointer;
   text-decoration: none;
-
 }
 
 .white-button {
@@ -975,8 +978,48 @@ a:hover {
   transition-duration: .1s;
 }
 
+a svg {
+  transition-duration: .1s;
+}
+
+.button svg {
+  transition-duration: 0s;
+}
+
 a:hover svg {
   color: inherit;
   transform: scale(1.2);
   transition-duration: .1s;
+}
+
+.bangers {
+  font-family: "Bangers", cursive;
+}
+
+h1 .bangers {
+  font-size: 4rem;
+}
+
+h2 .bangers {
+  font-size: 3.5rem;
+}
+
+h3 .bangers {
+  font-size: 3rem;
+}
+
+h4 .bangers {
+  font-size: 2.5rem;
+}
+
+h5 .bangers {
+  font-size: 2.3rem;
+}
+
+h6 .bangers {
+  font-size: 2rem;
+}
+
+p .bangers {
+  font-size: 1.7rem;
 }

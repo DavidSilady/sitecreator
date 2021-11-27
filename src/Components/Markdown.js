@@ -7,6 +7,8 @@ import gfm from "remark-gfm";
 import {DynamicFaIcon} from "./MarkdownComponents/IconRenderer";
 import {MarkdownImg} from "./MarkdownComponents/MarkdownImg";
 import {MarkdownButton} from "./MarkdownComponents/MarkdownButton";
+import {MarkdownCursive} from "./MarkdownComponents/MarkdownCursive";
+import {MarkdownFlex} from "./MarkdownComponents/MarkdownFlex";
 
 export const Markdown = ({className, children}) => {
     return (
@@ -25,6 +27,8 @@ const components = {
     icon: DynamicFaIcon,
     img: MarkdownImg,
     button: MarkdownButton,
+    cursive: MarkdownCursive,
+    row: MarkdownFlex,
 }
 
 // remark plugin to add a custom tag to the AST

@@ -78,7 +78,7 @@ export const GoldenRow = ({ title, subtitle, justify, id, colors, img, href, mar
             </Col>
             <Col md={width >= 992 ? 4 : 5} xs={12} className={justify === "text-left" ? "" : "mobile"}>
                 <GoldenRowCard
-                    classNames={"side-block " + justify}
+                    classNames={colorText + " side-block " + justify}
                     markdown={markdown}
                 />
             </Col>

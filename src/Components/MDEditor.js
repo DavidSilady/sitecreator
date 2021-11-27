@@ -4,7 +4,7 @@ import ReactMde from "react-mde";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import {Markdown} from "./Markdown";
 import * as Icons from "react-icons/fa";
-import {FaIcons, FaImage, FaRegWindowMinimize} from "react-icons/fa";
+import {FaEnvelope, FaIcons, FaImage, FaPhoneAlt, FaRegWindowMinimize} from "react-icons/fa";
 import {BiInfoSquare} from "react-icons/bi";
 import {MdWrapText} from "react-icons/md";
 import {Box, Button, Modal, TextField} from "@material-ui/core";
@@ -56,14 +56,17 @@ export function MDEditor({content, handleSubmit, keyValue = ""}) {
 
     const toolbarCommands = [
         [
-            'header', 'bold', 'italic', 'custom-newline', 'custom-vertical-line'
+            'header', 'bold', 'italic', 'custom-newline', 'custom-vertical-line',
         ],
         [
-            'link', 'custom-img', 'custom-icon', 'custom-button'
+            'link', 'custom-img', 'custom-icon', 'custom-button',
         ],
         [
-            'unordered-list', 'ordered-list', 'checked-list'
-        ]
+            'unordered-list', 'ordered-list', 'checked-list',
+        ],
+        [
+            'custom-mail-link', 'custom-tel-link',
+        ],
     ]
 
     const commands = {
@@ -72,6 +75,8 @@ export function MDEditor({content, handleSubmit, keyValue = ""}) {
         'custom-button': customButton,
         'custom-newline': customNewline,
         'custom-vertical-line': customVerticalLine,
+        'custom-mail-link': customMailLink,
+        'custom-tel-link': customTelLink,
     }
 
     return (
@@ -290,5 +295,31 @@ const customVerticalLine = {
     ),
     execute: opts => {
         opts.textApi.replaceSelection('\n****\n');
+    }
+}
+
+const customMailLink = {
+    name: "custom-mail-link",
+    icon: () => (
+        <FaEnvelope/>
+    ),
+    execute: opts => {
+        const exampleMail = 'example@mail.com'
+        opts.textApi.replaceSelection(`[:icon[FaEnvelope] text](mailto:${exampleMail})`)
+        const {start, end} = opts.textApi.getState().selection
+        opts.textApi.setSelectionRange({start: start - (exampleMail.length + 1), end: end - 1})
+    }
+}
+
+const customTelLink = {
+    name: "custom-tel-link",
+    icon: () => (
+        <FaPhoneAlt/>
+    ),
+    execute: opts => {
+        const exampleTel = '0905666420'
+        opts.textApi.replaceSelection(`[:icon[FaPhoneAlt] text](tel:${exampleTel})`)
+        const {start, end} = opts.textApi.getState().selection
+        opts.textApi.setSelectionRange({start: start - (exampleTel.length + 1), end: end - 1})
     }
 }

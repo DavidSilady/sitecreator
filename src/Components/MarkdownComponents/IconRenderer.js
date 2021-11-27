@@ -13,6 +13,8 @@ export const DynamicFaIcon = ({ children }) => {
     }
 
     return (
-        <IconComponent style={{verticalAlign: 'baseline'}}/>
+        <IconComponent
+            style={{verticalAlign: 'middle'}}
+        />
         );
 };

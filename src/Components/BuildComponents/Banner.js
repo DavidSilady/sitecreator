@@ -34,7 +34,7 @@ export function BannerWrapper({content}) {
 export function Banner({markdown, img, imgHeight=400, id="banner"}) {
 
     return (
-        <Row className={"wedo"} id={id}>
+        <Row className={"wedo title"} id={id}>
             <Col xs={12} md={12} className={"no-padding"}>
                 <div className={"container-fluid no-padding"}>
                     <div className={" title-img"} style={img ? {backgroundImage: `url(${img})`, minHeight: `${imgHeight}px`}: {minHeight: `${imgHeight}px`}}>

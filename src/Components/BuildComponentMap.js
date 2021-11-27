@@ -83,15 +83,14 @@ const defaultGoldenTextRowContent = {
 const defaultBannerContent = {
     imgHeight: 450,
     img: "https://ckvida.sk/static/media/alt2-title.408cc061.jpg",
-    markdown: "# [:icon[Logo] ](url)\n" +
-        "\n" +
+    markdown: "## [:icon[Logo] ](url)\n" +
         "### :cursive[Cestovná Kancelária]\n" +
         "\n" +
         ":row[\n" +
         ":button[Tábory]{url=\"undefined\" color=\"white\" icon=\"FaCampground\" minWidth=\"200px\"}\n" +
         ":button[Pre školy]{url=\"undefined\" color=\"white\" icon=\"FaSchool\" minWidth=\"200px\"}\n" +
         ":button[Rodinné pobyty]{url=\"undefined\" color=\"white\" icon=\"FaUserPlus\" minWidth=\"200px\"}\n" +
-        "]\n"
+        "]"
 }
 
 export const componentMap = {

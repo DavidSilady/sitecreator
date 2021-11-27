@@ -64,7 +64,7 @@ export function MDEditor({content, handleSubmit, keyValue = ""}) {
             'link', 'custom-img', 'custom-icon', 'custom-button',
         ],
         [
-            'unordered-list', 'ordered-list', 'checked-list',
+            'unordered-list', 'ordered-list', 'checked-list', 'custom-row',
         ],
         [
             'custom-mail-link', 'custom-tel-link',
@@ -83,6 +83,7 @@ export function MDEditor({content, handleSubmit, keyValue = ""}) {
         'custom-mail-link': customMailLink,
         'custom-tel-link': customTelLink,
         'custom-cursive': customCursive,
+        'custom-row': customRow,
     }
 
     return (
@@ -278,14 +279,7 @@ const customButton = {
         ))
         if (data) {
             opts.textApi.replaceSelection(
-                `:button[
-                ${data.text ? data.text : "text"}]
-                {
-                url="${data.url}" 
-                color="${data.color ? data.color : "white"}" 
-                icon="${data.icon ? data.icon : ""}"} 
-                ${data.minWidth ? `minWidth="${data.minWidth}px"` : ``}
-            `)
+                `:button[${data.text ? data.text : "text"}]{url="${data.url}" color="${data.color ? data.color : "white"}" icon="${data.icon ? data.icon : ""}"${data.minWidth ? `minWidth="${data.minWidth}px"` : ``}}`)
             const {start, end} = opts.textApi.getState().selection
             opts.textApi.setSelectionRange({start: start - 41, end: end - 24})
         }
@@ -357,8 +351,9 @@ const customRow = {
         <RiArrowLeftRightFill/>
     ),
     execute: opts => {
-        opts.textApi.replaceSelection(`:row[]`)
+        const example = "Row Content"
+        opts.textApi.replaceSelection(`:row[\n${example}\n]`)
         const {start, end} = opts.textApi.getState().selection
-        opts.textApi.setSelectionRange({start: start - 1, end: end - 1})
+        opts.textApi.setSelectionRange({start: start - (example.length + 2), end: end - 2})
     }
 }
